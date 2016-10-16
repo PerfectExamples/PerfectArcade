@@ -10,15 +10,19 @@ import StORM
 import SQLiteStORM
 import PerfectLib
 
+// Score class
+// Inherits all ORM methods from SQLiteStORM superclass
 class Score: SQLiteStORM {
 	var id = 0
 	var user = ""
 	var score = 0
 
+	// Set the table name
 	override open func table() -> String {
 		return "score"
 	}
 
+	// Need to do this because of the nature of Swift's introspection
 	override func to(_ this: StORMRow) {
 		id      = this.data["id"] as? Int ?? 0
 		user	= this.data["user"] as! String
@@ -35,6 +39,7 @@ class Score: SQLiteStORM {
 		return rows
 	}
 
+	// Create the table if needed
 	public func setup() {
 		do {
 			try sqlExec("CREATE TABLE IF NOT EXISTS score (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user TEXT, score INT)")

@@ -1,8 +1,8 @@
 //
 //  Package.swift
-//  PerfectTemplate
+//  PerfectArcade
 //
-//  Created by Kyle Jessup on 4/20/16.
+//  Created by Jonathan Guthrie 2016-10-12.
 //	Copyright (C) 2016 PerfectlySoft, Inc.
 //
 //===----------------------------------------------------------------------===//

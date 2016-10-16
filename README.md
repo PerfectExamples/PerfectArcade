@@ -1,4 +1,4 @@
-# PerfectTemplate
+# Arcade API Example
 
 <p align="center">
     <a href="http://perfect.org/get-involved.html" target="_blank">
@@ -9,9 +9,6 @@
 <p align="center">
     <a href="https://github.com/PerfectlySoft/Perfect" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_1_Star.jpg" alt="Star Perfect On Github" />
-    </a>  
-    <a href="https://gitter.im/PerfectlySoft/Perfect" target="_blank">
-        <img src="http://www.perfect.org/github/Perfect_GH_button_2_Git.jpg" alt="Chat on Gitter" />
     </a>  
     <a href="https://twitter.com/perfectlysoft" target="_blank">
         <img src="http://www.perfect.org/github/Perfect_GH_button_3_twit.jpg" alt="Follow Perfect on Twitter" />
@@ -34,17 +31,14 @@
     <a href="http://twitter.com/PerfectlySoft" target="_blank">
         <img src="https://img.shields.io/badge/Twitter-@PerfectlySoft-blue.svg?style=flat" alt="PerfectlySoft Twitter">
     </a>
-    <a href="https://gitter.im/PerfectlySoft/Perfect?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge" target="_blank">
-        <img src="https://img.shields.io/badge/Gitter-Join%20Chat-brightgreen.svg" alt="Join the chat at https://gitter.im/PerfectlySoft/Perfect">
-    </a>
     <a href="http://perfect.ly" target="_blank">
         <img src="http://perfect.ly/badge.svg" alt="Slack Status">
     </a>
 </p>
 
-Perfect Empty Starter Project
+Arcade API backend example
 
-This repository holds a blank Perfect project which can be cloned to serve as a starter for new work. It builds with Swift Package Manager and produces a stand-alone HTTP executable.
+Using Perfect, this example demonstrates JSON API interactions with GET and POST methods, storing and retrieving data via the [SQLite3 version of StORM](https://github.com/SwiftORM/SQLite-StORM) (a Swift ORM). HTTP Requests are logged using [Perfect-RequestLogger](https://github.com/dabfleming/Perfect-RequestLogger) by David Fleming.
 
 ###Compatibility with Swift
 
@@ -66,10 +60,10 @@ Alternatively, add to the "Library Search Paths" in "Project Settings" $(PROJECT
 The following will clone and build an empty starter project and launch the server on port 8181.
 
 ```
-git clone https://github.com/PerfectlySoft/PerfectTemplate.git
-cd PerfectTemplate
+git clone https://github.com/PerfectExamples/PerfectArcade.git
+cd PerfectArcade
 swift build
-.build/debug/PerfectTemplate
+.build/debug/PerfectArcade
 ```
 
 **If you see a build error concerning OpenSSL, please see the swift version or Library Search Paths recommendations above.**
@@ -80,57 +74,25 @@ You should see the following output:
 Starting HTTP server on 0.0.0.0:8181 with document root ./webroot
 ```
 
-This means the server is running and waiting for connections. Access [http://localhost:8181/](http://127.0.0.1:8181/) to see the greeting. Hit control-c to terminate the server.
+This means the server is running and waiting for connections.
 
-## Starter Content
+## Available Routes
 
-The template file contains a very simple "hello, world!" example.
 
-```swift
-import PerfectLib
-import PerfectHTTP
-import PerfectHTTPServer
-
-// Create HTTP server.
-let server = HTTPServer()
-
-// Register your own routes and handlers
-var routes = Routes()
-routes.add(method: .get, uri: "/", handler: {
-		request, response in
-		response.appendBody(string: "<html><title>Hello, world!</title><body>Hello, world!</body></html>")
-		response.completed()
-	}
-)
-
-// Add the routes to the server.
-server.addRoutes(routes)
-
-// Set a listen port of 8181
-server.serverPort = 8181
-
-// Set a document root.
-// This is optional. If you do not want to serve static content then do not set this.
-// Setting the document root will automatically add a static file handler for the route /**
-server.documentRoot = "./webroot"
-
-// Gather command line options and further configure the server.
-// Run the server with --help to see the list of supported arguments.
-// Command line arguments will supplant any of the values set above.
-configureServer(server)
-
-do {
-	// Launch the HTTP server.
-	try server.start()
-} catch PerfectError.networkError(let err, let msg) {
-	print("Network error thrown: \(err) \(msg)")
-}
 ```
+POST http://localhost:8181/api/v1/save
+Params: 
+	user, ideally 3 letters, i.e. AAA
+	score, an integer.
+```
+The save method returns a status of the action.
 
+```
+GET http://localhost:8181/api/v1/highscores
+```
+The highscores method returns the top 10 high scores, and the associated user.
 
 ## Issues
-
-We are transitioning to using JIRA for all bugs and support related issues, therefore the GitHub issues has been disabled.
 
 If you find a mistake, bug, or any other helpful suggestion you'd like to make on the docs please head over to [http://jira.perfect.org:8080/servicedesk/customer/portal/1](http://jira.perfect.org:8080/servicedesk/customer/portal/1) and raise it.
 

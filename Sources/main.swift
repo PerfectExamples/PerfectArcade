@@ -1,8 +1,8 @@
 //
 //  main.swift
-//  PerfectTemplate
+//  PerfectArcade
 //
-//  Created by Kyle Jessup on 2015-11-05.
+//  Created by Jonathan Guthrie 2016-10-12.
 //	Copyright (C) 2015 PerfectlySoft, Inc.
 //
 //===----------------------------------------------------------------------===//
@@ -24,10 +24,10 @@ import PerfectHTTPServer
 import PerfectRequestLogger
 import SQLiteStORM
 
-
-
+// Creating the connection to the SQLite3 database
 let connect = SQLiteConnect("./scoresdb")
 let scores = Score(connect)
+// Creating the table if it does not yet exist
 scores.setup()
 
 
@@ -36,10 +36,11 @@ scores.setup()
 let server = HTTPServer()
 
 // Setup logging
-let myLogger = RequestLogger()
-
-server.setRequestFilters([(myLogger.requestFilter(), .high)])
-server.setResponseFilters([(myLogger.responseFilter(), .low)])
+let logger = RequestLogger()
+// Set the log marker for the timer when the request is incoming
+server.setRequestFilters([(logger.requestFilter(), .high)])
+// Finish the log trracking when the request is complete and ready to be returned to client
+server.setResponseFilters([(logger.responseFilter(), .low)])
 
 
 // Register routes and handlers
