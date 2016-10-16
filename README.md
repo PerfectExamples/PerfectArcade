@@ -76,6 +76,19 @@ Starting HTTP server on 0.0.0.0:8181 with document root ./webroot
 
 This means the server is running and waiting for connections.
 
+## Building the Xcode Project
+
+To build the Xcode project, run the following in Terminal with the working directory being PerfectArcade as above.
+
+```
+swift package generate-xcodeproj
+```
+The output:
+
+```
+generated: ./PerfectArcade.xcodeproj
+```
+
 ## Available Routes
 
 
