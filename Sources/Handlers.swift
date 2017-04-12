@@ -32,7 +32,7 @@ func processSaveScore(request: HTTPRequest, _ response: HTTPResponse) {
 	}
 
 	// initialize the Score var
-	let score = Score(connect)
+	let score = Score()
 
 	// now that the params have been confirmed to be there, set to the vars
 	score.score = theScore
@@ -69,7 +69,7 @@ func getHighScores(request: HTTPRequest, _ response: HTTPResponse) {
 	var resp = [String: Any]()
 
 	// set up container object for results
-	let score = Score(connect)
+	let score = Score()
 	// set the cursor (number of results to return, and offset from start)
 	let cursor = StORMCursor(limit: 10, offset: 0)
 

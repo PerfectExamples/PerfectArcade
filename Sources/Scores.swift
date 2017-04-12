@@ -25,8 +25,8 @@ class Score: SQLiteStORM {
 	// Need to do this because of the nature of Swift's introspection
 	override func to(_ this: StORMRow) {
 		id      = this.data["id"] as? Int ?? 0
-		user	= this.data["user"] as! String
-		score	= this.data["score"] as! Int
+		user	= this.data["user"] as? String ?? ""
+		score	= this.data["score"] as? Int ?? 0
 	}
 
 	func rows() -> [Score] {
@@ -39,12 +39,4 @@ class Score: SQLiteStORM {
 		return rows
 	}
 
-	// Create the table if needed
-	public func setup() {
-		do {
-			try sqlExec("CREATE TABLE IF NOT EXISTS score (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user TEXT, score INT)")
-		} catch {
-			print(error)
-		}
-	}
 }

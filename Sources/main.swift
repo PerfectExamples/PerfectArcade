@@ -24,11 +24,14 @@ import PerfectHTTPServer
 import PerfectRequestLogger
 import SQLiteStORM
 
+// Adding the location for the log file
+RequestLogFile.location = "./webLog.log"
+
 // Creating the connection to the SQLite3 database
-let connect = SQLiteConnect("./scoresdb")
-let scores = Score(connect)
+SQLiteConnector.db = "./scoresdb"
+let scores = Score()
 // Creating the table if it does not yet exist
-scores.setup()
+try? scores.setup()
 
 
 
@@ -38,9 +41,9 @@ let server = HTTPServer()
 // Setup logging
 let logger = RequestLogger()
 // Set the log marker for the timer when the request is incoming
-server.setRequestFilters([(logger.requestFilter(), .high)])
+server.setRequestFilters([(logger, .high)])
 // Finish the log trracking when the request is complete and ready to be returned to client
-server.setResponseFilters([(logger.responseFilter(), .low)])
+server.setResponseFilters([(logger, .low)])
 
 
 // Register routes and handlers
